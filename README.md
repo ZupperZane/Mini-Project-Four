@@ -2,11 +2,17 @@
 
 ## Spring 2026
 
-### Topic: React Hooks (useEffect, useState) + TailwindCSS
+### Topic:
 
-## Reading \& Exercises:
+#### a) React Hooks (useEffect, useState)
 
-## 1. React Hooks:
+#### b) Utility-first Style (TailwindCSS, DaisyUI)
+
+#### c) fetch API
+
+## Reading \& Exercise
+
+## 1. React Hooks
 
 - React Hooks are special functions that allow you to use state and other React features in functional components without writing a class. They were introduced in React 16.8 to simplify code, improve readability, and facilitate the reuse of stateful logic.
 
@@ -64,7 +70,7 @@ b) **Utility-first CSS:** It uses small, single-purpose classes (e.g., `pt-4` fo
 
 The choice between them **depends heavily on project needs, team preferences, and the required level of design flexibility.**
 
-### ToDo 01:
+### ToDo:
 
 a) Install Tailwindcss + DaisyUI:
 
@@ -88,7 +94,7 @@ An API call is a request sent by one software application to another (the server
 
 - To load dummy JSON data using the **fetch()** API, you can either retrieve data from a local JSON file or use a public, dummy API endpoint.
 
-- The fetch() function returns a Promise that resolves to a Response object, which you then convert to a JavaScript object using response.json()
+- The `fetch()` function returns a `Promise` that resolves to a `Response` object, which you then convert to a JavaScript object using response.json()
 
 - for class demo, we will use (https://jsonplaceholder.typicode.com/); then for the project, we will use a local .json file (provided with your project).
 
@@ -106,21 +112,22 @@ function App() {
       if (!response.ok) throw new Error("failed to fetch");
 
       const myData = await response.json();
-      setData(myData);
-      setError(null);
-      console.log(data);
+      setData(myData); // data is loaded properly
+      setError(null); // no error
+
+      //console.log(data); //--> testing
     } catch (err) {
-      setError(err);
-      console.log(err);
-      setData(null);
+      setError(err); // error
+      //console.log(err);
+      setData(null); // data is still null
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // loading attempted and done
     }
   }
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, []); // [] -> dependency array, if empty, then the effect only takes place at the beginning (first render)
 
   return (
     <>

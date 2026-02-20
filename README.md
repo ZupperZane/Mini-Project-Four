@@ -158,6 +158,45 @@ function App() {
 
     - **Server Components (React 18/19+):** In React Server Components, you can use async/await directly at the component level to fetch data before the component even sends HTML to the browser.
 
+### mini-project-04 problem description:
+
+- Given a local dataset (in `public>movie.json`), create a React App that can load the data and display it in a manageable way.
+
+- make sure to use `useEffect` and `useState` properly and apply utility-first css for styling.
+
+- create components as necessary to keep the root component (e.g., App) as clean as possible.
+
+- don't forget to add a loader (`daisyUI` has some nice ones).
+
+- The app should have a title/header, navbar (at least some lables \& buttons like wishlist, watched), appropriate buttons (like, dislike) to interact with the data, and a footer. Again, daisyUI has several of them. Use them as you like.
+
+- The app must have a way to let the user find movies based on several categories: `age group`, `genre`, `year`.
+
+- The app must have a way to let the user see a sorted list. The default `sorted` option should be `by year (latest to oldest)`. Then also let them two other ways to sort the list.
+
+- finally, the user must be able to download the list of his/her `wishlisted` movies (in any format: json, csv, pdf, txt) but the downloaded file must be readable to the user.
+
+- carefully design the frontend; try to display the movie information as modularly as possible.
+
+- use appropriate messages (like: `no movie found ...`) for search options.
+
+- use third party libraries (such as React-Toastify and React-Icons) to make your app look interesting and show/display messages as needed.
+
+### Submission:
+
+- Feel free to find your teammate (at most 3 people per group).
+- Submit the live link and the GitHub repo like by 11:59 pm on **Feb 26, 2026**.
+- GitHub repo must have a informative README file.
+- The code should be organized in appropriate folders.
+- Your team will receive a 0 if the submissions were not done by the deadline (sharp deadline).
+- Prepare a 3-minute presentation for the next class (Feb 27, 2026).
+
+### Rubric (40 points):
+
+- code: 30 points (documentation needed, points will be taken off if components were not found)
+- README: 5 points
+- presentation: 5 points
+
 ### Resources:
 
 - https://www.w3schools.com/react/react_hooks.asp

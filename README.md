@@ -76,6 +76,64 @@ a) Install Tailwindcss + DaisyUI:
 
 b) Create a new project and start using tailwindcss + daisyUI.
 
+- Use a navbar, footer, banner from **DaisyUI** with some customization.
+
+- We will continue to use this project for this weeks work.
+
+## 3) API Calls
+
+An API call is a request sent by one software application to another (the server) to access data or trigger a specific function, which then sends back a response. This mechanism enables different programs to communicate and exchange information seamlessly, forming the foundation of modern web and mobile applications.
+
+### Loading Dummy JSON Data:
+
+- To load dummy JSON data using the **fetch()** API, you can either retrieve data from a local JSON file or use a public, dummy API endpoint.
+
+- The fetch() function returns a Promise that resolves to a Response object, which you then convert to a JavaScript object using response.json()
+
+- for class demo, we will use (https://jsonplaceholder.typicode.com/); then for the project, we will use a local .json file (provided with your project).
+
+```javascript
+function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  async function fetchData() {
+    try {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/users",
+      );
+      if (!response.ok) throw new Error("failed to fetch");
+      const myData = await response.json();
+      setData(myData);
+      setError(null);
+      console.log(data);
+    } catch (err) {
+      setError(err);
+      console.log(err);
+      setData(null);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  useEffect(() => {
+    fetchData();
+  }, []); // load the beginning
+
+  return (
+    <>
+      {isLoading && <MyDataLoader />}
+      {!isLoading && (
+        <>
+          <Body />
+          {data && <DisplayData localdata={data} />}
+        </>
+      )}
+    </>
+  );
+}
+```
+
 ### Resources:
 
 - https://www.w3schools.com/react/react_hooks.asp

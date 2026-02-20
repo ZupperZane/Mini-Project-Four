@@ -42,24 +42,28 @@ a) **Semantic CSS**: It focuses on naming classes based on the content's meaning
   - **Customization Difficulties:** Deviating from a component framework's default design can require significant effort, often involving complex overrides or !important rules.
   - **"Naming Things" Problem:** Developers often spend time debating class names and managing naming collisions.
 
-b) **Utility-first CSS:** It uses small, single-purpose classes (e.g., `pt-4` for padding-top: 1rem, `flex` for display: flex) applied directly in the HTML markup to build designs.
+b) **Utility-first CSS:** It uses small, single-purpose classes (e.g., `pt-4` for padding-top: `1rem`, `flex` for `display: flex`) applied directly in the HTML markup to build designs.
 
-- **Advantages:**
-  - **Rapid Prototyping:** Developers can build interfaces quickly without leaving the HTML file, eliminating the need to context-switch between HTML and separate CSS files.
-  - **No "Naming Problem":** It eliminates the need to come up with meaningful or "semantic" class names (e.g., .card-primary vs .card-main).
-  - **Smaller CSS Bundles:** Frameworks can automatically purge unused utility classes in the final build, resulting in minimal, optimized production CSS files.
-  - **Design Consistency:** Utility classes are usually tied to a predefined design system's configuration (e.g., a specific color palette or spacing scale), which enforces visual consistency across the project.
-  - **Avoids Specificity Issues:** Since utility classes have low specificity, developers rarely encounter frustrating CSS specificity battles or need !important declarations.
+    - **Advantages:**
+        - **Rapid Prototyping:** Developers can build interfaces quickly without leaving the HTML file, eliminating the need to context-switch between HTML and separate CSS files.
 
--**Disadvantages:**
+        - **No "Naming Problem":** It eliminates the need to come up with meaningful or "semantic" class names (e.g., .card-primary vs .card-main).
 
--**Bloated HTML:** HTML files can become cluttered and less readable with a long list of classes on each element.
+        - **Smaller CSS Bundles:** Frameworks can automatically purge unused utility classes in the final build, resulting in minimal, optimized production CSS files.
 
--**Steeper Learning Curve:** New team members may require time to learn the specific utility syntax and workflow of the framework.
+        - **Design Consistency:** Utility classes are usually tied to a predefined design system's configuration (e.g., a specific color palette or spacing scale), which enforces visual consistency across the project.
 
--**Refactoring Challenges:** Changing a design that uses the same combination of utilities in multiple places can be cumbersome without abstracting them into a component
+        - **Avoids Specificity Issues:** Since utility classes have low specificity, developers rarely encounter frustrating CSS specificity battles or need !important declarations.
 
-The choice between them depends heavily on project needs, team preferences, and the required level of design flexibility.
+    -**Disadvantages:**
+
+        -**Bloated HTML:** HTML files can become cluttered and less readable with a long list of classes on each element.
+
+        -**Steeper Learning Curve:** New team members may require time to learn the specific utility syntax and workflow of the framework.
+
+        -**Refactoring Challenges:** Changing a design that uses the same combination of utilities in multiple places can be cumbersome without abstracting them into a component
+
+The choice between them **depends heavily on project needs, team preferences, and the required level of design flexibility.**
 
 ### ToDos:
 

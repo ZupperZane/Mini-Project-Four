@@ -17,4 +17,14 @@
   - `useReducer`
   - `useRef`
 
+- We will use `useEffect` and `useState` in today's lab.
+
+  a) `useEffect`: It performs side effects (e.g., data fetching, subscriptions, manual DOM updates) in functional components.
+  - check `TestUseEffect.jsx`. While testing it, comment out `<App / >` from the `main.jsx` file and add `<TestUseEffect />` instead. Notice how `useEffect` is triggered/called when the dependency (`count`) changes.
+  - more examples: https://www.w3schools.com/react/react_useeffect.asp
+
 ### ToDos:
+
+### Resources:
+
+- https://www.w3schools.com/react/react_hooks.asp

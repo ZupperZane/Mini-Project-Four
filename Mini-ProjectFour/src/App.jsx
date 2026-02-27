@@ -10,6 +10,9 @@ const App = () => {
   const [filter1,setFilter1] = useState("title");
   //Search
   const [searchQuery,setSearchQuery] = useState(" ")
+
+  const [wishlist, setWishlist] = useState([]);
+
   //Filtered Data
       const filteredData = data.filter(movie =>
     movie[filter1]?.toString().toLowerCase().includes(searchQuery.toLowerCase())
@@ -40,52 +43,138 @@ const App = () => {
     fetchData();
   }, []);
 
+   const toggleWishlist = (movie) => {
+    setWishlist((prev) =>
+      prev.some((m) => m.title === movie.title)
+        ? prev.filter((m) => m.title !== movie.title)
+        : [...prev, movie]
+    );
+  };
+
+  const isWishlisted = (movie) => wishlist.some((m) => m.title === movie.title);
+
 
   return (
-    <>
-<div className="navbar bg-grey border border-gray-300 shadow-sm flex flex-row items-center gap-4 p-3 rounded-box mx-4 mt-4">
-  <a class="btn btn-ghost text-xl">Movie Wishlister</a>
+    <div className="min-h-screen bg-base-200">
 
-    <select value ={filter1} onChange={(e) => setFilter1(e.target.value)} 
-      className="border border-gray-300 rounded p-1"
-      >
-      <option value="title">Title</option>
-      <option value="director">Director</option>
-      <option value="releasing_year">Year Released</option>
-      <option value="language">Language</option>
-      <option value="runtime">Runtime</option>
-      <option value="age_group">Age Group</option>
-      <option value="short_description">Description</option>
-      <option value="genre">Genre</option>
-      <option value="budget">Budget</option>
-      <option value="imdb_rating">Rating (IMDB)</option>
-    </select>
+      <div className="navbar bg-base-100 shadow-md px-6 sticky top-0 z-50">
+        <div className="flex-1 flex items-center gap-2">
+          <img src={myImage} className="w-8 h-8 object-contain" alt="Movie icon" />
+          <span className="text-xl font-bold tracking-tight">Movie Wishlister</span>
+        </div>
 
-    <input type="search" onChange={(e) => setSearchQuery(e.target.value)}
-    className="border border-gray-300 rounded p-1" />
+        <div className="flex-none flex items-center gap-2">
+          <div className="indicator">
+            <span className="indicator-item badge badge-sm badge-primary">
+              {wishlist.length}
+            </span>
+            <button className="btn btn-ghost btn-sm gap-1">Wishlist</button>
+          </div>
+        </div>
+      </div>
 
-    <img src={myImage}/>
-</div>
-    {!isLoading && data && (
-       filteredData.length === 0 ? (
-      <h2 >No results found for {filter1} : {searchQuery}</h2>
-      ) : (
-      <ul className="m-10 p-3">
-       {filteredData.map((d, index) => (
-          <li key={index} className="text-3xl">
-            <center>
-              {d["title"]}
-              </center>
-            {d[filter1]}
-            <button>
-             <p>Add To Wishlist</p>
-            </button>
-          </li>
-      ))}
-    </ul>
-  )
-)}
-    </>
+      <div className="max-w-5xl mx-auto px-4 py-8">
+        <div className="card bg-base-100 shadow-sm mb-8">
+          <div className="card-body flex flex-col sm:flex-row gap-3 items-end p-4">
+            <div className="form-control w-full sm:w-48">
+              <label className="label pb-1">
+                <span className="label-text text-xs font-semibold uppercase tracking-wide">Filter by</span>
+              </label>
+              <select
+                value={filter1}
+                onChange={(e) => setFilter1(e.target.value)}
+                className="select select-bordered select-sm"
+              >
+                <option value="title">Title</option>
+                <option value="director">Director</option>
+                <option value="releasing_year">Year Released</option>
+                <option value="language">Language</option>
+                <option value="runtime">Runtime</option>
+                <option value="age_group">Age Group</option>
+                <option value="short_description">Description</option>
+                <option value="genre">Genre</option>
+                <option value="budget">Budget</option>
+                <option value="imdb_rating">IMDB Rating</option>
+              </select>
+            </div>
+
+            <div className="form-control flex-1">
+              <label className="label pb-1">
+                <span className="label-text text-xs font-semibold uppercase tracking-wide">Search</span>
+              </label>
+              <input
+                type="search"
+                placeholder={`Search by ${filter1}...`}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="input input-bordered input-sm w-full"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Loading */}
+        {isLoading && (
+          <div className="flex flex-col items-center gap-4 py-20">
+            <span className="loading loading-spinner loading-lg text-primary"></span>
+          </div>
+        )}
+
+        {error && (
+          <div className="text-center py-20 text-base-content/50">
+            <span>Failed to load movies. Please try again.</span>
+          </div>
+        )}
+
+        {/* No results */}
+        {!isLoading && !error && filteredData.length === 0 && (
+          <div className="text-center py-20 text-base-content/50">
+            <p className="text-lg font-medium">No results found</p>
+            <p className="text-sm">No movies matched {searchQuery} in {filter1}</p>
+          </div>
+        )}
+
+        {!isLoading && !error && filteredData.length > 0 && (
+          <>
+            <p className="text-sm text-base-content/50 mb-4">{filteredData.length} movie{filteredData.length !== 1 ? "s" : ""} found</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredData.map((movie, index) => (
+                <div key={index} className="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="card-body p-4">
+                    <h2 className="card-title text-xl leading-snug badge badge-neutral">{movie.title}</h2>
+
+                    <div className="flex flex-col items-center gap-2 mt-2">
+                      {movie.director && <span className="badge-soft">Director: {movie.director}</span>}
+                      {movie.genre && <span className="badge-soft">Genre: {movie.genre}</span>}
+                      {movie.releasing_year && <span className="badge-soft">Release Year: {movie.releasing_year}</span>}
+                      {movie.imdb_rating && <span className="badge-soft">IMDB Rating: {movie.imdb_rating}</span>}
+                      {movie.runtime && <span className="badge-soft">Runtime: {movie.runtime}</span>}
+                      {movie.age_group && <span className="badge-soft">Age group: {movie.age_group}</span>}
+                      {movie.language && <span className="badge-soft">Language: {movie.language}</span>}
+                      {movie.budget && <span className="badge-soft">Budget: {movie.budget}</span>}
+                    </div>
+
+                    {movie.short_description && (
+                      <p className="text-sm mt-4">
+                        {movie.short_description}
+                      </p>
+                    )}
+
+                    <div className="card-actions justify-end mt-3">
+                      <button
+                        onClick={() => toggleWishlist(movie)}
+                        className={`btn btn-sm ${isWishlisted(movie) ? "btn-primary" : "btn-outline"}`}
+                      >
+                        {isWishlisted(movie) ? "Remove from Wishlist" : "Add to Wishlist"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 

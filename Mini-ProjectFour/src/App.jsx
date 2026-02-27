@@ -31,7 +31,7 @@ const App = () => {
   async function fetchData() {
     try {
       const response = await fetch(
-        "./public/movie.json",
+        "/movie.json",
       );
       if (!response.ok) throw new Error("failed to fetch");
       const myData = await response.json();

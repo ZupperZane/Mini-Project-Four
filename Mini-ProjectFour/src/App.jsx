@@ -16,8 +16,16 @@ const App = () => {
   //Filtered Data
       const filteredData = data.filter(movie =>
     movie[filter1]?.toString().toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      // // Source - https://stackoverflow.com/a/35092754
+      // Sort structure from ^
+
+  .sort((a, b) => {
+    const valA = a[filter1]?.toString().toLowerCase() ?? '';
+    const valB = b[filter1]?.toString().toLowerCase() ?? '';
+    return valA.localeCompare(valB);
+  }
   );
-  
 
   //Fetch Function
   async function fetchData() {

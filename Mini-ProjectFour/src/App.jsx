@@ -23,7 +23,7 @@ const App = () => {
   .sort((a, b) => {
     const valA = a[filter1]?.toString().toLowerCase() ?? '';
     const valB = b[filter1]?.toString().toLowerCase() ?? '';
-    return valA.localeCompare(valB);
+    return valB.localeCompare(valA);
   }
   );
 
@@ -50,7 +50,7 @@ const App = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
+  // Wishlist Elements
    const toggleWishlist = (movie) => {
     setWishlist((prev) =>
       prev.some((m) => m.title === movie.title)
@@ -61,6 +61,7 @@ const App = () => {
 
   const isWishlisted = (movie) => wishlist.some((m) => m.title === movie.title);
 
+  //Download Elements
   // Downlaods as TXT file
   const downloadWishlist = () => {
     const text = wishlist.map((movie) =>

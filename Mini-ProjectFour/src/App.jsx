@@ -16,8 +16,16 @@ const App = () => {
   //Filtered Data
       const filteredData = data.filter(movie =>
     movie[filter1]?.toString().toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      // // Source - https://stackoverflow.com/a/35092754
+      // Sort structure from ^
+
+  .sort((a, b) => {
+    const valA = a[filter1]?.toString().toLowerCase() ?? '';
+    const valB = b[filter1]?.toString().toLowerCase() ?? '';
+    return valA.localeCompare(valB);
+  }
   );
-  
 
   //Fetch Function
   async function fetchData() {
@@ -53,6 +61,29 @@ const App = () => {
 
   const isWishlisted = (movie) => wishlist.some((m) => m.title === movie.title);
 
+  // Downlaods as TXT file
+  const downloadWishlist = () => {
+    const text = wishlist.map((movie) =>
+`Movie Name: ${movie.title || "N/A"}
+Director: ${movie.director || "N/A"}
+Genre: ${movie.genre || "N/A"}
+Release Year: ${movie.releasing_year || "N/A"}
+IMDB Rating: ${movie.imdb_rating || "N/A"}
+Runtime: ${movie.runtime || "N/A"}
+Age Group: ${movie.age_group || "N/A"}
+Language: ${movie.language || "N/A"}
+Budget: ${movie.budget || "N/A"}
+Short Description: ${movie.short_description || "N/A"}`
+    ).join("\n\n---\n\n");
+
+    const blob = new Blob([text], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "wishlist.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="min-h-screen bg-base-200">
@@ -64,6 +95,14 @@ const App = () => {
         </div>
 
         <div className="flex-none flex items-center gap-2">
+          <button
+            onClick={downloadWishlist}
+            disabled={wishlist.length === 0}
+            className="btn btn-ghost btn-sm"
+            title="Download wishlist"
+          >
+            Download
+          </button>
           <div className="indicator">
             <span className="indicator-item badge badge-sm badge-primary">
               {wishlist.length}

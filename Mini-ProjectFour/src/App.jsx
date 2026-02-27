@@ -9,7 +9,7 @@ const App = () => {
   //Filter 1 is the Category
   const [filter1,setFilter1] = useState("title");
   //Search
-  const [searchQuery,setSearchQuery] = useState(" ")
+  const [searchQuery,setSearchQuery] = useState("")
 
   const [wishlist, setWishlist] = useState([]);
 
